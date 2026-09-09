@@ -23,7 +23,7 @@
                 <a href="#" class="nav-link active"><i class="fa-solid fa-list-check"></i> <span>Order Line</span></a>
                 <a href="#" class="nav-link"><i class="fa-solid fa-chair"></i> <span>Manage Table</span></a>
                 <a href="#" class="nav-link"><i class="fa-solid fa-calendar-check"></i> <span>Reservation List</span></a>
-                <a href="#" class="nav-link"><i class="fa-solid fa-clock-history"></i> <span>Table History</span></a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-clock-rotate-left"></i> <span>Table History</span></a>
                 <a href="#" class="nav-link"><i class="fa-solid fa-bowl-food"></i> <span>Manage Dish</span></a>
                 <a href="#" class="nav-link"><i class="fa-solid fa-headset"></i> <span>Help Center</span></a>
                 <a href="#" class="nav-link"><i class="fa-solid fa-gear"></i> <span>Setting</span></a>
@@ -43,14 +43,11 @@
             <header class="top-header">
                 <div class="search-bar">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="search-input" placeholder="Look up any dish you desire...">
+                    <input type="text" id="search-input" placeholder="Look up any dish you desire..." onkeyup="filterDishes()">
                 </div>
                 <div class="header-actions">
                     <button class="btn-icon"><i class="fa-solid fa-sliders"></i> Filter</button>
-                    <!-- Language Toggle Button -->
-                    <button class="btn-icon" id="lang-toggle-btn" onclick="toggleLanguage()">
-                        <i class="fa-solid fa-globe"></i> SI
-                    </button>
+                    <button class="btn-icon" id="lang-toggle-btn"><i class="fa-solid fa-globe"></i> SI</button>
                 </div>
             </header>
 
@@ -74,56 +71,50 @@
                         <p>Add New Dish</p>
                     </div>
 
-                    <!-- Dish Item 1 -->
-                    <div class="dish-card">
+                    <!-- Default Dishes -->
+                    <div class="dish-card" data-name="Satay Wagyu">
                         <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=300" class="dish-img" alt="Satay Wagyu">
                         <h4 class="dish-title">Satay Wagyu</h4>
                         <div class="dish-price">Rs. 450.00</div>
                         <button class="btn-add-item" onclick="addToOrder('Satay Wagyu', 450.00)">+ Add</button>
                     </div>
 
-                    <!-- Dish Item 2 -->
-                    <div class="dish-card">
+                    <div class="dish-card" data-name="Tenderloin Potato">
                         <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=300" class="dish-img" alt="Tenderloin Potato">
                         <h4 class="dish-title">Tenderloin Potato</h4>
                         <div class="dish-price">Rs. 1750.00</div>
                         <button class="btn-add-item" onclick="addToOrder('Tenderloin Potato', 1750.00)">+ Add</button>
                     </div>
 
-                    <!-- Dish Item 3 -->
-                    <div class="dish-card">
+                    <div class="dish-card" data-name="Briyani Chicken">
                         <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300" class="dish-img" alt="Briyani Chicken">
                         <h4 class="dish-title">Briyani Chicken</h4>
                         <div class="dish-price">Rs. 1900.00</div>
                         <button class="btn-add-item" onclick="addToOrder('Briyani Chicken', 1900.00)">+ Add</button>
                     </div>
 
-                    <!-- Dish Item 4 -->
-                    <div class="dish-card">
+                    <div class="dish-card" data-name="Beef Curry Rice">
                         <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=300" class="dish-img" alt="Beef Curry Rice">
                         <h4 class="dish-title">Beef Curry Rice</h4>
                         <div class="dish-price">Rs. 1500.00</div>
                         <button class="btn-add-item" onclick="addToOrder('Beef Curry Rice', 1500.00)">+ Add</button>
                     </div>
 
-                    <!-- Dish Item 5 -->
-                    <div class="dish-card">
+                    <div class="dish-card" data-name="Bibimbap">
                         <img src="https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=300" class="dish-img" alt="Bibimbap">
                         <h4 class="dish-title">Bibimbap</h4>
                         <div class="dish-price">Rs. 1890.00</div>
                         <button class="btn-add-item" onclick="addToOrder('Bibimbap', 1890.00)">+ Add</button>
                     </div>
 
-                    <!-- Dish Item 6 -->
-                    <div class="dish-card">
+                    <div class="dish-card" data-name="Tofu Mushroom">
                         <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300" class="dish-img" alt="Tofu Mushroom">
                         <h4 class="dish-title">Tofu Mushroom</h4>
                         <div class="dish-price">Rs. 2000.00</div>
                         <button class="btn-add-item" onclick="addToOrder('Tofu Mushroom', 2000.00)">+ Add</button>
                     </div>
 
-                    <!-- Dish Item 7 -->
-                    <div class="dish-card">
+                    <div class="dish-card" data-name="Sirloin Potato">
                         <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=300" class="dish-img" alt="Sirloin Potato">
                         <h4 class="dish-title">Sirloin Potato</h4>
                         <div class="dish-price">Rs. 2500.00</div>
@@ -134,19 +125,31 @@
             </section>
         </main>
 
-        <!-- 3. RIGHT SIDEBAR - ORDER LINE (CART) -->
-        <aside class="order-panel">
+        <!-- 3. RIGHT SIDEBAR - ORDER PANEL / RECEIPT -->
+        <aside class="order-panel" id="order-panel">
+            
+            <!-- Receipt Header (Print වලට පමණක් විශේෂයෙන් පෙනෙන බිල් විස්තර) -->
+            <div class="receipt-header-print">
+                <h2>LIKE FOOD RESTAURANT</h2>
+                <p>No. 123, Kandy Road, Kurunegala</p>
+                <p>Tel: +94 77 123 4567 / +94 37 222 3344</p>
+                <div class="receipt-divider">--------------------------------</div>
+                <div class="receipt-meta">
+                    <span id="receipt-date">Date: --/--/----</span>
+                    <span id="receipt-time">Time: --:--</span>
+                </div>
+                <div class="receipt-divider">--------------------------------</div>
+            </div>
+
             <div class="order-header">
                 <h3>Order Line</h3>
                 <button class="btn-clear" onclick="clearOrder()">Clear</button>
             </div>
 
-            <!-- Dynamic Order Items Container -->
             <div class="order-items-list" id="order-items-list">
-                <!-- Javascript මඟින් අයිතම මෙතැනට එකතු වේ -->
+                <!-- Items Inserted via JS -->
             </div>
 
-            <!-- Order Summary Calculations -->
             <div class="order-summary">
                 <div class="summary-row">
                     <span>Subtotal</span>
@@ -156,27 +159,33 @@
                     <span>Tax (10%)</span>
                     <span id="tax-val">Rs. 0.00</span>
                 </div>
-                <hr>
+                <hr class="screen-hr">
                 <div class="summary-row total-row">
                     <span>Total</span>
                     <span id="total-val">Rs. 0.00</span>
                 </div>
 
+                <div class="receipt-footer-print">
+                    <div class="receipt-divider">--------------------------------</div>
+                    <p>Thank You For Dining With Us!</p>
+                    <p>Please Come Again</p>
+                </div>
+
                 <div class="order-actions">
-                    <button class="btn-place-order" onclick="placeOrder()">Place Order</button>
+                    <button class="btn-place-order" onclick="printReceipt()">Print Bill & Place Order</button>
                 </div>
             </div>
         </aside>
     </div>
 
     <!-- 4. MODAL FOR ADDING NEW DISH -->
-    <div class="modal-overlay" id="add-dish-modal" style="display: none;">
+    <div class="modal-overlay" id="add-dish-modal">
         <div class="modal-container">
             <div class="modal-header">
                 <h3>Add New Dish</h3>
                 <button class="close-btn" onclick="closeAddDishModal()">&times;</button>
             </div>
-            <form id="add-dish-form">
+            <form id="add-dish-form" onsubmit="handleAddNewDish(event)">
                 <div class="form-group">
                     <label for="dish-name-input">Dish Name</label>
                     <input type="text" id="dish-name-input" placeholder="e.g. Chicken Kottu" required>
@@ -197,7 +206,7 @@
         </div>
     </div>
 
-    <!-- External Script File Link -->
+    <!-- External Script File -->
     <script src="script.js"></script>
 </body>
 </html>
