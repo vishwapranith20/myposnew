@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Like Food - POS System</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- 1. SIDEBAR NAVIGATION -->
+        <aside class="sidebar">
+            <div class="logo-section">
+                <i class="fa-solid fa-utensils logo-icon"></i>
+                <h2>LIKE FOOD</h2>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#" class="nav-link"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></a>
+                <a href="#" class="nav-link active"><i class="fa-solid fa-list-check"></i> <span>Order Line</span></a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-chair"></i> <span>Manage Table</span></a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-calendar-check"></i> <span>Reservation List</span></a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-clock-history"></i> <span>Table History</span></a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-bowl-food"></i> <span>Manage Dish</span></a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-headset"></i> <span>Help Center</span></a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-gear"></i> <span>Setting</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="upgrade-box">
+                    <p>Ready for the Next Level?</p>
+                    <button class="btn-upgrade">Upgrade Plan</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 2. MAIN CONTENT AREA -->
+        <main class="main-content">
+            <!-- Header Section -->
+            <header class="top-header">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="search-input" placeholder="Look up any dish you desire...">
+                </div>
+                <div class="header-actions">
+                    <button class="btn-icon"><i class="fa-solid fa-sliders"></i> Filter</button>
+                    <!-- Language Toggle Button -->
+                    <button class="btn-icon" id="lang-toggle-btn" onclick="toggleLanguage()">
+                        <i class="fa-solid fa-globe"></i> SI
+                    </button>
+                </div>
+            </header>
+
+            <!-- Banner Section -->
+            <section class="banner">
+                <div class="banner-text">
+                    <h1>Effortlessly Manage Your Menu!</h1>
+                    <p>Quick access to every dish—add, update, and organize your menu with ease.</p>
+                </div>
+                <button class="btn-add-cat">+ Add Dish Category</button>
+            </section>
+
+            <!-- Dishes Grid Section -->
+            <section class="dishes-section">
+                <h3>Add New Dish to Order</h3>
+                <div class="dishes-grid" id="dishes-grid">
+                    
+                    <!-- Add Dish Action Card -->
+                    <div class="dish-card add-dish-card" onclick="openAddDishModal()">
+                        <div class="add-icon">+</div>
+                        <p>Add New Dish</p>
+                    </div>
+
+                    <!-- Dish Item 1 -->
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=300" class="dish-img" alt="Satay Wagyu">
+                        <h4 class="dish-title">Satay Wagyu</h4>
+                        <div class="dish-price">Rs. 450.00</div>
+                        <button class="btn-add-item" onclick="addToOrder('Satay Wagyu', 450.00)">+ Add</button>
+                    </div>
+
+                    <!-- Dish Item 2 -->
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=300" class="dish-img" alt="Tenderloin Potato">
+                        <h4 class="dish-title">Tenderloin Potato</h4>
+                        <div class="dish-price">Rs. 1750.00</div>
+                        <button class="btn-add-item" onclick="addToOrder('Tenderloin Potato', 1750.00)">+ Add</button>
+                    </div>
+
+                    <!-- Dish Item 3 -->
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300" class="dish-img" alt="Briyani Chicken">
+                        <h4 class="dish-title">Briyani Chicken</h4>
+                        <div class="dish-price">Rs. 1900.00</div>
+                        <button class="btn-add-item" onclick="addToOrder('Briyani Chicken', 1900.00)">+ Add</button>
+                    </div>
+
+                    <!-- Dish Item 4 -->
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=300" class="dish-img" alt="Beef Curry Rice">
+                        <h4 class="dish-title">Beef Curry Rice</h4>
+                        <div class="dish-price">Rs. 1500.00</div>
+                        <button class="btn-add-item" onclick="addToOrder('Beef Curry Rice', 1500.00)">+ Add</button>
+                    </div>
+
+                    <!-- Dish Item 5 -->
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=300" class="dish-img" alt="Bibimbap">
+                        <h4 class="dish-title">Bibimbap</h4>
+                        <div class="dish-price">Rs. 1890.00</div>
+                        <button class="btn-add-item" onclick="addToOrder('Bibimbap', 1890.00)">+ Add</button>
+                    </div>
+
+                    <!-- Dish Item 6 -->
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300" class="dish-img" alt="Tofu Mushroom">
+                        <h4 class="dish-title">Tofu Mushroom</h4>
+                        <div class="dish-price">Rs. 2000.00</div>
+                        <button class="btn-add-item" onclick="addToOrder('Tofu Mushroom', 2000.00)">+ Add</button>
+                    </div>
+
+                    <!-- Dish Item 7 -->
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=300" class="dish-img" alt="Sirloin Potato">
+                        <h4 class="dish-title">Sirloin Potato</h4>
+                        <div class="dish-price">Rs. 2500.00</div>
+                        <button class="btn-add-item" onclick="addToOrder('Sirloin Potato', 2500.00)">+ Add</button>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <!-- 3. RIGHT SIDEBAR - ORDER LINE (CART) -->
+        <aside class="order-panel">
+            <div class="order-header">
+                <h3>Order Line</h3>
+                <button class="btn-clear" onclick="clearOrder()">Clear</button>
+            </div>
+
+            <!-- Dynamic Order Items Container -->
+            <div class="order-items-list" id="order-items-list">
+                <!-- Javascript මඟින් අයිතම මෙතැනට එකතු වේ -->
+            </div>
+
+            <!-- Order Summary Calculations -->
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal-val">Rs. 0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (10%)</span>
+                    <span id="tax-val">Rs. 0.00</span>
+                </div>
+                <hr>
+                <div class="summary-row total-row">
+                    <span>Total</span>
+                    <span id="total-val">Rs. 0.00</span>
+                </div>
+
+                <div class="order-actions">
+                    <button class="btn-place-order" onclick="placeOrder()">Place Order</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 4. MODAL FOR ADDING NEW DISH -->
+    <div class="modal-overlay" id="add-dish-modal" style="display: none;">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Add New Dish</h3>
+                <button class="close-btn" onclick="closeAddDishModal()">&times;</button>
+            </div>
+            <form id="add-dish-form">
+                <div class="form-group">
+                    <label for="dish-name-input">Dish Name</label>
+                    <input type="text" id="dish-name-input" placeholder="e.g. Chicken Kottu" required>
+                </div>
+                <div class="form-group">
+                    <label for="dish-price-input">Price (Rs.)</label>
+                    <input type="number" id="dish-price-input" step="0.01" placeholder="e.g. 1200.00" required>
+                </div>
+                <div class="form-group">
+                    <label for="dish-img-input">Image URL (Optional)</label>
+                    <input type="url" id="dish-img-input" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeAddDishModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Dish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- External Script File Link -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "like-food-pos",
+  "version": "1.0.0",
+  "description": "LIKE FOOD Restaurant POS System",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis"
+  },
+  "build": {
+    "appId": "com.restaurant.pos",
+    "productName": "LIKE FOOD POS",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "server.js",
+      "pos.db",
+      "public/**/*"
+    ],
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "devDependencies": {
+    "electron": "^28.3.3",
+    "electron-builder": "^24.9.0"
+  }
+}
